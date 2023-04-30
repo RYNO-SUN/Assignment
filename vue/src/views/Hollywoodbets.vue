@@ -3,10 +3,10 @@
 <template>
 
  
-  
-  <div class="min-w-fit">
+<input type="text" v-model="search" placeholder="Search" />
+  <div >
     <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class=" max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <div class="min-w-fit">
@@ -78,10 +78,31 @@
         </div>
       </DisclosurePanel>
     </Disclosure>
+    <div class="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    <div class="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
+      <div class="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)" />
+    </div>
+    <div class="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
+      <div class="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)" />
+    </div>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <p class="text-sm leading-6 text-gray-900">
+        <strong class="font-semibold">C3R 2023</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>Join us in Redcliffe , Australia from June 7 – 9 to see what’s coming next.
+      </p>
+      <a href="#" class="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">Register now <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="flex flex-1 justify-end">
+      <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+        <span class="sr-only">Dismiss</span>
+        <XMarkIcon class="h-5 w-5 text-gray-900" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
 
     <header class="bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Hollywoodbets</h1>
+        
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">HollywoodBets</h1>
       </div>
     </header>
     <main>
@@ -94,6 +115,7 @@
   </thead>
   <tbody>
     <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -103,6 +125,7 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[0].race }}</td>
 <td>{{ myRacecard.races[0].title }}</td>
 <td>{{ myRacecard.races[0].distance }}</td>
 <td>{{ myRacecard.races[0].stake }}</td>
@@ -119,18 +142,113 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[0].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[0].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[0].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[0].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
      </tr>
 
+    
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -140,12 +258,16 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[1].race }}</td>
 <td>{{ myRacecard.races[1].title }}</td>
 <td>{{ myRacecard.races[1].distance }}</td>
 <td>{{ myRacecard.races[1].stake }}</td>
 <td>{{ myRacecard.races[1].course }}</td>
 <td>{{ myRacecard.races[1].club }}</td>
 </tr>
+
+    
+
      <tr class="border-2 rounded-r-xl m-24">
       <th scope="col">Horse Number</th>
       <th scope="col">Horse Name</th>
@@ -153,17 +275,112 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[1].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[1].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[1].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[1].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
      </tr>
+
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -173,12 +390,16 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[2].race }}</td>
 <td>{{ myRacecard.races[2].title }}</td>
 <td>{{ myRacecard.races[2].distance }}</td>
 <td>{{ myRacecard.races[2].stake }}</td>
 <td>{{ myRacecard.races[2].course }}</td>
 <td>{{ myRacecard.races[2].club }}</td>
 </tr>
+
+    
+
      <tr class="border-2 rounded-r-xl m-24">
       <th scope="col">Horse Number</th>
       <th scope="col">Horse Name</th>
@@ -186,17 +407,84 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[2].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
-     </tr>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[2].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[2].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+
+
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -206,12 +494,16 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[3].race }}</td>
 <td>{{ myRacecard.races[3].title }}</td>
 <td>{{ myRacecard.races[3].distance }}</td>
 <td>{{ myRacecard.races[3].stake }}</td>
 <td>{{ myRacecard.races[3].course }}</td>
 <td>{{ myRacecard.races[3].club }}</td>
 </tr>
+
+    
+
      <tr class="border-2 rounded-r-xl m-24">
       <th scope="col">Horse Number</th>
       <th scope="col">Horse Name</th>
@@ -219,17 +511,112 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[3].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[3].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[3].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[3].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
      </tr>
+
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -239,12 +626,16 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[4].race }}</td>
 <td>{{ myRacecard.races[4].title }}</td>
 <td>{{ myRacecard.races[4].distance }}</td>
 <td>{{ myRacecard.races[4].stake }}</td>
 <td>{{ myRacecard.races[4].course }}</td>
 <td>{{ myRacecard.races[4].club }}</td>
 </tr>
+
+    
+
      <tr class="border-2 rounded-r-xl m-24">
       <th scope="col">Horse Number</th>
       <th scope="col">Horse Name</th>
@@ -252,17 +643,113 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[4].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[4].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[4].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[4].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
      </tr>
+
+    
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -272,12 +759,16 @@
      
     </tr>
     <tr>
+      <td>{{ myRacecard.races[5].race }}</td>
 <td>{{ myRacecard.races[5].title }}</td>
 <td>{{ myRacecard.races[5].distance }}</td>
 <td>{{ myRacecard.races[5].stake }}</td>
 <td>{{ myRacecard.races[5].course }}</td>
 <td>{{ myRacecard.races[5].club }}</td>
 </tr>
+
+    
+
      <tr class="border-2 rounded-r-xl m-24">
       <th scope="col">Horse Number</th>
       <th scope="col">Horse Name</th>
@@ -285,17 +776,111 @@
       <th scope="col">Jockey Name</th>
       <th scope="col">Trainer Name</th>
       <th scope="col">weight</th>
+
+      
+     
      
     </tr>
      <tr v-for="horse, index in myRacecard.races[5].horses">
+     
       <td scope="row">{{ horse.horseNo }}</td>
       <td>{{ horse.horseName }}</td>
       <td>{{ horse.draw }}</td>
       <td>{{ horse.jockeyName }}</td>
       <td>{{ horse.trainerName }}</td>
       <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[5].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[5].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[5].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
      </tr>
      <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
       <th scope="col">RaceTitle</th>
       <th scope="col">Distance</th>
       <th scope="col">Stake</th>
@@ -304,9 +889,144 @@
       
      
     </tr>
-   
+    <tr>
+      <td>{{ myRacecard.races[6].race }}</td>
+<td>{{ myRacecard.races[6].title }}</td>
+<td>{{ myRacecard.races[6].distance }}</td>
+<td>{{ myRacecard.races[6].stake }}</td>
+<td>{{ myRacecard.races[6].course }}</td>
+<td>{{ myRacecard.races[6].club }}</td>
+</tr>
 
-   
+    
+
+     <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Horse Number</th>
+      <th scope="col">Horse Name</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Jockey Name</th>
+      <th scope="col">Trainer Name</th>
+      <th scope="col">weight</th>
+
+      
+     
+     
+    </tr>
+     <tr v-for="horse, index in myRacecard.races[6].horses">
+     
+      <td scope="row">{{ horse.horseNo }}</td>
+      <td>{{ horse.horseName }}</td>
+      <td>{{ horse.draw }}</td>
+      <td>{{ horse.jockeyName }}</td>
+      <td>{{ horse.trainerName }}</td>
+      <td>{{ horse.weight }}</td>
+
+
+    </tr>
+
+     
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+    <tr v-for="pastruns in myRacecard.races[6].horses">
+      <td>#</td>
+      <td>{{ pastruns.horseName }}</td>
+    <td>{{ pastruns.pastRuns[0].dateString }}</td>
+      <td>{{ pastruns.pastRuns[0].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[0].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[0].distance }}</td>
+      <td>{{ pastruns.pastRuns[0].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[0].weight }}</td>
+      <td>{{ pastruns.pastRuns[0].draw }}</td>
+      <td>{{ pastruns.pastRuns[0].finished }}</td>
+      <td>{{ pastruns.pastRuns[0].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[0].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[6].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[1].dateString }}</td>
+      <td>{{ pastruns.pastRuns[1].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[1].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[1].distance }}</td>
+      <td>{{ pastruns.pastRuns[1].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[1].weight }}</td>
+      <td>{{ pastruns.pastRuns[1].draw }}</td>
+      <td>{{ pastruns.pastRuns[1].finished }}</td>
+      <td>{{ pastruns.pastRuns[1].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[1].closeOdds }}</td>
+</tr>
+<tr class="border-2 rounded-r-xl m-24">
+      <th>Past Runs</th>
+      <th>Horse Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Code</th>
+      <th scope="col">Race Code</th>
+      <th scope="col">Distance</th>
+      <th scope="col">jockeyName</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Draw</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Time Finished</th>
+      <th scope="col">Close Odds</th>
+    </tr>
+<tr v-for="pastruns in myRacecard.races[6].horses">
+  <td>#</td>
+  <td>{{ pastruns.horseName }}</td>
+      <td>{{ pastruns.pastRuns[2].dateString }}</td>
+      <td>{{ pastruns.pastRuns[2].cfcode }}</td>
+      <td>{{ pastruns.pastRuns[2].raceCode }}</td>
+      <td>{{ pastruns.pastRuns[2].distance }}</td>
+      <td>{{ pastruns.pastRuns[2].jockeyName }}</td>
+      <td>{{ pastruns.pastRuns[2].weight }}</td>
+      <td>{{ pastruns.pastRuns[2].draw }}</td>
+      <td>{{ pastruns.pastRuns[2].finished }}</td>
+      <td>{{ pastruns.pastRuns[2].timeFinished }}</td>
+      <td>{{ pastruns.pastRuns[2].closeOdds }}</td>
+
+     </tr>
+
+     <tr class="border-2 rounded-r-xl m-24">
+      <th scope="col">Race Number</th>
+      <th scope="col">RaceTitle</th>
+      <th scope="col">Distance</th>
+      <th scope="col">Stake</th>
+      <th scope="col">Course</th>
+      <th scope="col">Club</th>
+      
+     
+    </tr>
+    
+     
+
+     
+
+    
   </tbody>
 </table>
 </div>
